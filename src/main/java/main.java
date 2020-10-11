@@ -5,10 +5,7 @@ import org.json.simple.parser.ParseException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class main {
     public static WebDriver driver = null;
-    public static int id = 0;
+    public static int id = 119;
     public static int lowsodiumCounter = 0;
     public static int lowfatCounter = 0;
     public static int lowCaloriesCounter = 0;
@@ -30,7 +27,7 @@ public class main {
     {
         HIGHFATMODERATEPROTEIN,HIGHPROTEIN, LOWSODIUM, LOWFAT, LOWCALORIE
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "src/main/chromedriver.exe");
         driver = new ChromeDriver();
 
@@ -60,7 +57,7 @@ public class main {
             //Iterate over employee array
 
 
-            for (int i = 0; i<employeeList.size(); i++) {
+            for (int i = id; i<employeeList.size(); i++) {
                 parseEmployeeObject((JSONObject) employeeList.get(i));
             }
             driver.close();
@@ -84,11 +81,11 @@ public class main {
         }
     }
 
-    public static String retrieveImageURL(String recipeName) throws Exception{
+    public static String retrieveImageURL(String recipeName) throws UnsupportedEncodingException, InterruptedException {
 
         try {
 
-            driver.get("https://www.epicurious.com/search/" + URLEncoder.encode(recipeName,"UTF-8"));
+            driver.get("https://www.epicurious.com/search/" + URLEncoder.encode(recipeName, "UTF-8"));
             /*
             //driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
             //WebElement cookieButton = driver.findElement(By.id("onetrust-accept-btn-handler"));
@@ -103,11 +100,12 @@ public class main {
             searchForm.sendKeys(recipeName);
             searchForm.sendKeys(Keys.ENTER);
             //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-            */List<WebElement> headers = driver.findElements(By.tagName("h1"));
+            */
+            List<WebElement> headers = driver.findElements(By.tagName("h1"));
             if (headers.size() != 0) {
                 if (headers.get(0).getText().equals("DON'T CRY!")) {
-                    System.out.println("no recipe/article found");
-                    throw new NotFoundException("No recipe or article found");
+
+                    throw new NullPointerException("No recipe or article found");
                 }
             /*if (headers.get(0).getText().contains("Cry")){
                 System.out.println("error");
@@ -155,8 +153,11 @@ public class main {
             return src;
 
             //if internet connection is disconnected dont stop program
-        }catch (org.openqa.selenium.WebDriverException e){
+        }catch
+        (WebDriverException e){
+            e.printStackTrace();
             TimeUnit.SECONDS.sleep(5);
+            System.out.println("error");
             return retrieveImageURL(recipeName);
         }
     }
