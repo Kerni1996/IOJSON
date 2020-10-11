@@ -54,8 +54,7 @@ public class main {
             JSONArray employeeList = (JSONArray) obj;
             //System.out.println(employeeList);
 
-            //Iterate over employee array
-
+            //Iterate over recipe array
 
             for (int i = id; i<employeeList.size(); i++) {
                 parseEmployeeObject((JSONObject) employeeList.get(i));
