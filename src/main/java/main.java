@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class main {
     public static WebDriver driver = null;
-    public static int id = 119;
+    public static int id = 10000;
     public static int lowsodiumCounter = 0;
     public static int lowfatCounter = 0;
     public static int lowCaloriesCounter = 0;
@@ -56,6 +56,7 @@ public class main {
 
             //Iterate over recipe array
 
+            System.out.println("number of recipes: " + employeeList.size());
             for (int i = id; i<employeeList.size(); i++) {
                 parseEmployeeObject((JSONObject) employeeList.get(i));
             }
