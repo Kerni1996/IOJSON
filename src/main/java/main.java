@@ -14,6 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 public class main {
     public static WebDriver driver = null;
+    //IDs worked on:
+    //0-5115
+    //10000-17099
     public static int id = 10000;
     public static int lowsodiumCounter = 0;
     public static int lowfatCounter = 0;
